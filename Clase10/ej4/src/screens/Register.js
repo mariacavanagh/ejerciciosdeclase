@@ -1,29 +1,63 @@
-import React from "react";
+import React, { Component } from 'react';
 import { Pressable, Text, View} from "react-native";
 import { StyleSheet } from "react-native";
+import { TextInput } from "react-native-web";
 
+class Register extends Component{
+    constructor(props) {
+        super(props)
+        this.state={
+            email:"",
+            user: "",
+            password:"",
 
+        }
+    }
 
+    onSubmit() {
+        console.log("Email:", this.state.email);
+        console.log("Usuario:", this.state.user);
+        console.log("Password:", this.state.password);
+      }
 
-function Register(props){
-    return (
-        <View style= {styles.container}>
-        <Text style= {styles.title}> Formulario de register </Text>
-        <Pressable style={styles.button} onPress={() => props.navigation.navigate("Login")}>
-            <Text style={styles.buttonText}> Ir a Login </Text>
-        
-        </Pressable>
-        </View>
-    )
+    render(){
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}> Formulario de register </Text>
+                <TextInput style={styles.input}
+                    keyboardType="email-address"
+                    placeholder="email"
+                    onChangeText={ text => this.setState({email:text})}
+                    value={this.state.email}/>
+                <TextInput style={styles.input}
+                    keyboardType="default"
+                    placeholder="user"
+                    onChangeText={ text => this.setState({user:text})}
+                    value={this.state.user}/>
+                <TextInput style={styles.input}
+                    keyboardType="default"
+                    placeholder="password"
+                    secureTextEntry={true}
+                    onChangeText={ text => this.setState({password:text})}
+                    value={this.state.password}/>
+                <Pressable style={styles.button} onPress={()=> this.onSubmit()}>
+                    <Text style={styles.buttonText}> Registrarse </Text>
+
+                </Pressable>
+                <Pressable style={styles.button} onPress={ () => this.props.navigation.navigate("Login")}>
+                    <Text style={styles.buttonText}>Ir a Login</Text>
+                </Pressable>
+                
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: "#f6f6f6",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingHorizontal: 20,
+      paddingHorizontal: 10,
+      marginTop: 20,
+
     },
     title: {
       fontSize: 28,
@@ -33,17 +67,33 @@ const styles = StyleSheet.create({
       textAlign: "center",
     },
     button: {
-      backgroundColor: "#64B5F6", // azul suave
-      paddingVertical: 12,
-      paddingHorizontal: 30,
-      borderRadius: 6,
+        backgroundColor: '#28a745',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        alignItems: 'center',
+        borderRadius: 4,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#28a745',
+        marginTop: 5,
+      
     },
+    input: {
+    height: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderStyle: 'solid',
+    marginVertical: 10,
+      },
+
     buttonText: {
-      color: "#000",
-      fontSize: 16,
-      fontWeight: "500",
-      textAlign: "center",
-    },
-});
+        color: '#fff'
+    }
+      },
+    
+
+);
 
 export default Register;
